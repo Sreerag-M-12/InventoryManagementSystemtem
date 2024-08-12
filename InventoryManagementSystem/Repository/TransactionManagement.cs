@@ -58,7 +58,12 @@ namespace InventoryManagementSystem.Repository
             }
             else
             {
-                
+                int value = product.ProductQuantity;
+                value = value-quantity;
+                if(value < 0)
+                {
+                    throw new NegativeStockException("Stock value is in negative");
+                }
                 product.ProductQuantity -= quantity;
                 
                 _context.Entry(product).State = EntityState.Modified;

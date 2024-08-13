@@ -48,10 +48,26 @@ namespace InventoryManagementSystem.Controllers
                     string name = Console.ReadLine();
                     Console.WriteLine("Suppliers Contact");
                     string contact = Console.ReadLine();
+                    Console.WriteLine("Inventory Id");
+                    int inventoryId = Convert.ToInt32(Console.ReadLine());
+                    InventoryManagement inventoryManagement = new InventoryManagement(new Data.InventoryContext());
+                    try
+                    {
+                        if (!inventoryManagement.IsInventoryIdValid(inventoryId))
+                        {
+                            throw new InvalidOperationException("Invalid Inventory Id. Inventory doesnt exist.");
+                        }
+                    }
+                    catch (InvalidOperationException ioe)
+                    {
+                        Console.WriteLine(ioe.Message);
+                        return;
+                    }
                     Supplier supplier = new Supplier()
                     {
                         SupplierName=name,
-                        SupplierContact=contact
+                        SupplierContact=contact,
+                        InventoryId=inventoryId
                     };
                     supplierManager.AddSupplier(supplier);
                     Console.WriteLine();

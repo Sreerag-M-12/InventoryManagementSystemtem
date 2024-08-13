@@ -14,7 +14,7 @@ namespace InventoryManagementSystem.Data
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
-
+        public DbSet<Inventory> Inventorys { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(ConfigurationManager.AppSettings["connectionString"]);

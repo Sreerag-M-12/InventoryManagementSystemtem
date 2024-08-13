@@ -38,7 +38,9 @@ namespace InventoryManagementSystem.Repository
                     ProductId = product.ProductId,
                     ActionType="Stock Added",
                     TransactionQuantity = quantity,
-                    Date = DateTime.Now
+                    Date = DateTime.Now,
+                    InventoryId = product.InventoryId
+
                 };
                 AddTransaction(transaction);
                 _context.SaveChanges();
@@ -72,7 +74,9 @@ namespace InventoryManagementSystem.Repository
                     ProductId = product.ProductId,
                     ActionType = "Stock Removed",
                     TransactionQuantity = quantity,
-                    Date = DateTime.Now
+                    Date = DateTime.Now,
+                    InventoryId = product.InventoryId
+
                 };
                 AddTransaction(transaction);
                 _context.SaveChanges();

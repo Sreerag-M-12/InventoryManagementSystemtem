@@ -24,6 +24,8 @@ namespace InventoryManagementSystem.Repository
         {
             return _context.Products.Any(p => p.ProductName == productName);
         }
+
+      
         public void AddProduct(Product product)
         {
             if (DoesProductExist(product.ProductName))

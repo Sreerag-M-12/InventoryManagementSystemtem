@@ -61,12 +61,28 @@ namespace InventoryManagementSystem.Controllers
                     int quantity = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Product Price");
                     int price = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Inventory Id");
+                    int inventoryId = Convert.ToInt32(Console.ReadLine());
+                    InventoryManagement inventoryManagement= new InventoryManagement(new Data.InventoryContext());
+                    try
+                    {
+                        if (!inventoryManagement.IsInventoryIdValid(inventoryId))
+                        {
+                            throw new InvalidOperationException("Invalid Inventory Id. Inventory doesnt exist.");
+                        }
+                    }
+                    catch (InvalidOperationException ioe)
+                    {
+                        Console.WriteLine(ioe.Message);
+                        return;
+                    }
                     Product product = new Product()
                     { 
                         ProductName =name,
                         ProductDescription=description,
                         ProductQuantity=quantity,
-                        ProductPrice=price
+                        ProductPrice=price,
+                        InventoryId = inventoryId
                     };
                     productmanager.AddProduct(product);
                     Console.WriteLine();

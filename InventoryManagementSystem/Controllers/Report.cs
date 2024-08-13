@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using InventoryManagementSystem.Exceptions;
 using InventoryManagementSystem.Repository;
 
 namespace InventoryManagementSystem.Controllers
@@ -16,12 +17,20 @@ namespace InventoryManagementSystem.Controllers
             {
                 Console.WriteLine("Report Generation");
                 Console.WriteLine("What operation would you like to perform? \n" +
-                    "1. Generate Report \n"  +
+                    "1. Generate Report \n" +
                     "2. Exit \n");
 
                 Console.WriteLine("Enter your Choice");
                 int choice = Convert.ToInt32(Console.ReadLine());
-                DoTask(choice);
+                try
+                {
+                    DoTask(choice);
+                }
+                catch(NoSuchItemException nsie) 
+                {
+                    Console.WriteLine(nsie.Message);
+                }
+
             }
         }
 
@@ -30,7 +39,8 @@ namespace InventoryManagementSystem.Controllers
             switch (choice)
             {
                 case 1:
-                    inventorymanager.generateReport();
+                    Console.WriteLine("Enter Inventory ID:");
+                    int inventoryId = Convert.ToInt32(Console.ReadLine());                        inventorymanager.GenerateReport(inventoryId);
                     break;
                 case 2:
                     var inventoryMenu = new InventoryMenu();
@@ -41,5 +51,6 @@ namespace InventoryManagementSystem.Controllers
                     break;
             }
         }
+
     }
 }

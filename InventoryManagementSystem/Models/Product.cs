@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,13 +15,16 @@ namespace InventoryManagementSystem.Models
         public int ProductQuantity { get; set; }
         public int ProductPrice { get; set; }
 
+        [ForeignKey("Inventory")]
+        public int InventoryId { get; set; }
         public override string ToString()
         {
             return $"Product ID: {ProductId}\n" +
                 $"Product Name: {ProductName}\n" +
                 $"Product Desc: {ProductDescription}\n" +
                 $"Product Quantity: {ProductQuantity}\n" +
-                $"Product Price: {ProductPrice}\n";
+                $"Product Price: {ProductPrice}\n" +
+                $"Inventory Id: {InventoryId}\n";
         }
     }
 }

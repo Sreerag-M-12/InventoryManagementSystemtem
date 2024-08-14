@@ -22,7 +22,7 @@ namespace InventoryManagementSystem.Controllers
                     "2. Update a Supplier \n" +
                     "3. Delete a Supplier \n" +
                     "4. View Supplier Details \n" +
-                    "5. View All Supplier \n" +
+                    "5. View Supplier by Id \n" +
                     "6. Exit \n");
 
                 Console.WriteLine("Enter your Choice");
@@ -70,6 +70,7 @@ namespace InventoryManagementSystem.Controllers
                         InventoryId=inventoryId
                     };
                     supplierManager.AddSupplier(supplier);
+                    Console.WriteLine("supplier added");
                     Console.WriteLine();
                     break;
 
@@ -87,12 +88,14 @@ namespace InventoryManagementSystem.Controllers
                         SupplierContact = contact1
                     };
                     supplierManager.UpdateSupplier(supplier);
+                    Console.WriteLine("Supplier updated");
                     Console.WriteLine();
                     break;
                 case 3:
                     Console.WriteLine("Enter Supplier Name to Delete");
                     string nameDelete = Console.ReadLine();
                     supplierManager.DeleteSupplier(nameDelete);
+                    Console.WriteLine("supplier deleted");
                     break;
                 case 4:
                     supplierManager.DisplaySupplier(supplierManager.GetAllSupplier());

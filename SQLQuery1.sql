@@ -1,0 +1,4 @@
+﻿USE InventoryDatabase
+GO
+DBCC CHECKIDENT(PRODUCTS, RESEED, 0)
+GO

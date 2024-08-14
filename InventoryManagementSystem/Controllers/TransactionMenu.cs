@@ -50,6 +50,7 @@ namespace InventoryManagementSystem.Controllers
                     Console.WriteLine("Enter Quantity");
                     int quantity = Convert.ToInt32(Console.ReadLine());
                     transactionmanager.AddStock(name, quantity);
+                    Console.WriteLine("stock added to "+ name);
                     break;
                 case 2:
                     Console.WriteLine("Enter Product Name");
@@ -57,6 +58,7 @@ namespace InventoryManagementSystem.Controllers
                     Console.WriteLine("Enter Quantity");
                     quantity = Convert.ToInt32(Console.ReadLine());
                     transactionmanager.RemoveStock(name, quantity);
+                    Console.WriteLine("stock removed from " + name);
                     break;
                 case 3:
                     Console.WriteLine("Transaction Log");

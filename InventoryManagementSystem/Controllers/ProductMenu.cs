@@ -85,7 +85,7 @@ namespace InventoryManagementSystem.Controllers
                         InventoryId = inventoryId
                     };
                     productmanager.AddProduct(product);
-                    Console.WriteLine();
+                    Console.WriteLine("Product Added");
                     break;
                 
                 case 2:
@@ -113,12 +113,13 @@ namespace InventoryManagementSystem.Controllers
                         ProductPrice = price
                     };
                     productmanager.UpdateProduct(product);
-                    Console.WriteLine();
+                    Console.WriteLine("product updated");
                     break;
                 case 3:
                     Console.WriteLine("Enter Product Name to Delete");
                     string nameDelete = Console.ReadLine();
                     productmanager.DeleteProduct(nameDelete);
+                    Console.WriteLine($"Product deleted");
                     break;
                 case 4:
                     productmanager.DisplayProducts(productmanager.GetAllProduct());

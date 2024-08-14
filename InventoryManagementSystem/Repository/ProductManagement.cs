@@ -67,7 +67,7 @@ namespace InventoryManagementSystem.Repository
                 Console.WriteLine(product);
                 _context.Products.Remove(product);
                 _context.SaveChanges();
-                Console.WriteLine($"Product {product.ProductName} deleted");
+              
             }
             else
                 throw new NoSuchItemException("No Such Product exists");

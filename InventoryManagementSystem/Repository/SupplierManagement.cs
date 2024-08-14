@@ -51,7 +51,6 @@ namespace InventoryManagementSystem.Repository
                 Console.WriteLine(supplier);
                 _context.Suppliers.Remove(supplier);
                 _context.SaveChanges();
-                Console.WriteLine($"Supplier {supplier.SupplierName} deleted");
             }
             else
                 throw new NoSuchItemException("Supplier not found");

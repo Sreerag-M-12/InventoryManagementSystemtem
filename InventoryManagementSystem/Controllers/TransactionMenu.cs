@@ -45,33 +45,41 @@ namespace InventoryManagementSystem.Controllers
             switch (choice)
             {
                 case 1:
-                    Console.WriteLine("Enter Product Name");
-                    string name = Console.ReadLine();
-                    Console.WriteLine("Enter Quantity");
-                    int quantity = Convert.ToInt32(Console.ReadLine());
-                    transactionmanager.AddStock(name, quantity);
-                    Console.WriteLine("stock added to "+ name);
+                    Add();
                     break;
                 case 2:
-                    Console.WriteLine("Enter Product Name");
-                    name = Console.ReadLine();
-                    Console.WriteLine("Enter Quantity");
-                    quantity = Convert.ToInt32(Console.ReadLine());
-                    transactionmanager.RemoveStock(name, quantity);
-                    Console.WriteLine("stock removed from " + name);
+                    Remove();
                     break;
                 case 3:
                     Console.WriteLine("Transaction Log");
                     transactionmanager.DisplayTransaction(transactionmanager.GetAllTransaction());
                     break;
                 case 4:
-                    var inventoryMenu = new InventoryMenu();
-                    inventoryMenu.MainMenu();
+                    InventoryMenu.MainMenu();
                     break;
                 default:
                     Console.WriteLine("Invalid Input");
                     break;
             }
+        }
+        public void Add()
+        {
+            Console.WriteLine("Enter Product Name");
+            string name = Console.ReadLine();
+            Console.WriteLine("Enter Quantity");
+            int quantity = Convert.ToInt32(Console.ReadLine());
+            transactionmanager.AddStock(name, quantity);
+            Console.WriteLine("stock added to " + name);
+        }
+        public void Remove()
+        {
+            Console.WriteLine("Enter Product Name");
+            string name = Console.ReadLine();
+            Console.WriteLine("Enter Quantity");
+            int quantity = Convert.ToInt32(Console.ReadLine());
+            transactionmanager.RemoveStock(name, quantity);
+            Console.WriteLine("stock removed from " + name);
+
         }
     }
 }

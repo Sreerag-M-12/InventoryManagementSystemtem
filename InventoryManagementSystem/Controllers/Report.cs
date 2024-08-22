@@ -17,8 +17,9 @@ namespace InventoryManagementSystem.Controllers
             {
                 Console.WriteLine("Report Generation");
                 Console.WriteLine("What operation would you like to perform? \n" +
-                    "1. Generate Report \n" +
-                    "2. Exit \n");
+                    "1. Generate Report individually \n" +
+                    "2. Generate Bulk Report \n" +
+                    "3. Exit \n");
 
                 Console.WriteLine("Enter your Choice");
                 int choice = Convert.ToInt32(Console.ReadLine());
@@ -38,13 +39,18 @@ namespace InventoryManagementSystem.Controllers
         {
             switch (choice)
             {
+                
                 case 1:
                     Console.WriteLine("Enter Inventory ID:");
-                    int inventoryId = Convert.ToInt32(Console.ReadLine());                        inventorymanager.GenerateReport(inventoryId);
+                    int inventoryId = Convert.ToInt32(Console.ReadLine());                        
+                    inventorymanager.GenerateReport(inventoryId);
                     break;
                 case 2:
-                    var inventoryMenu = new InventoryMenu();
-                    inventoryMenu.MainMenu();
+                    var inventorym = new InventoryManagement(new Data.InventoryContext());
+                    inventorym.GenerateReportBulk();
+                    break;
+                case 3:
+                    InventoryMenu.MainMenu();
                     break;
                 default:
                     Console.WriteLine("Invalid output");

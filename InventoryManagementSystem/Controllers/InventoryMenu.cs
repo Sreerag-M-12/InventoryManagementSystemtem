@@ -10,7 +10,7 @@ namespace InventoryManagementSystem.Controllers
 {
     internal class InventoryMenu
     {
-        public void MainMenu()
+        public static void MainMenu()
         {
             while (true)
             {

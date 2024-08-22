@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using InventoryManagementSystem.Exceptions;
 using InventoryManagementSystem.Models;
 using InventoryManagementSystem.Repository;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 
 namespace InventoryManagementSystem.Controllers
 {
@@ -43,59 +45,14 @@ namespace InventoryManagementSystem.Controllers
             switch (choice)
             {
                 case 1:
-                    Console.WriteLine("Enter Supplier Details ");
-                    Console.WriteLine("Supplier Name");
-                    string name = Console.ReadLine();
-                    Console.WriteLine("Suppliers Contact");
-                    string contact = Console.ReadLine();
-                    Console.WriteLine("Inventory Id");
-                    int inventoryId = Convert.ToInt32(Console.ReadLine());
-                    InventoryManagement inventoryManagement = new InventoryManagement(new Data.InventoryContext());
-                    try
-                    {
-                        if (!inventoryManagement.IsInventoryIdValid(inventoryId))
-                        {
-                            throw new InvalidOperationException("Invalid Inventory Id. Inventory doesnt exist.");
-                        }
-                    }
-                    catch (InvalidOperationException ioe)
-                    {
-                        Console.WriteLine(ioe.Message);
-                        return;
-                    }
-                    Supplier supplier = new Supplier()
-                    {
-                        SupplierName=name,
-                        SupplierContact=contact,
-                        InventoryId=inventoryId
-                    };
-                    supplierManager.AddSupplier(supplier);
-                    Console.WriteLine("supplier added");
-                    Console.WriteLine();
+                    Add();
                     break;
 
                 case 2:
-                    Console.WriteLine("Supplier ID");
-                    int id = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Supplier Name");
-                    string name1 = Console.ReadLine();
-                    Console.WriteLine("Supplier Contact");
-                    string contact1 = Console.ReadLine();
-                    supplier = new Supplier()
-                    {
-                        SupplierId = id,
-                        SupplierName = name1,
-                        SupplierContact = contact1
-                    };
-                    supplierManager.UpdateSupplier(supplier);
-                    Console.WriteLine("Supplier updated");
-                    Console.WriteLine();
+                    Update();
                     break;
                 case 3:
-                    Console.WriteLine("Enter Supplier Name to Delete");
-                    string nameDelete = Console.ReadLine();
-                    supplierManager.DeleteSupplier(nameDelete);
-                    Console.WriteLine("supplier deleted");
+                    Delete();
                     break;
                 case 4:
                     supplierManager.DisplaySupplier(supplierManager.GetAllSupplier());
@@ -106,14 +63,73 @@ namespace InventoryManagementSystem.Controllers
                     supplierManager.DisplaySupplierById(id1);
                     break;
                 case 6:
-                    var inventoryMenu = new InventoryMenu();
-                    inventoryMenu.MainMenu();
+                    InventoryMenu.MainMenu();
                     break;
                 default:
                     Console.WriteLine("Invalid Input");
                     Console.WriteLine();
                     break;
             }
+        }
+        public void Add()
+        {
+            Console.WriteLine("Enter Supplier Details ");
+            Console.WriteLine("Supplier Name");
+            string name = Console.ReadLine();
+            Console.WriteLine("Suppliers Contact");
+            string contact = Console.ReadLine();
+            Console.WriteLine("Inventory Id");
+            int inventoryId = Convert.ToInt32(Console.ReadLine());
+            InventoryManagement inventoryManagement = new InventoryManagement(new Data.InventoryContext());
+            try
+            {
+                if (!inventoryManagement.IsInventoryIdValid(inventoryId))
+                {
+                    throw new InvalidOperationException("Invalid Inventory Id. Inventory doesnt exist.");
+                }
+            }
+            catch (InvalidOperationException ioe)
+            {
+                Console.WriteLine(ioe.Message);
+                return;
+            }
+            Supplier supplier = new Supplier()
+            {
+                SupplierName = name,
+                SupplierContact = contact,
+                InventoryId = inventoryId
+            };
+            supplierManager.AddSupplier(supplier);
+            Console.WriteLine("supplier added");
+            Console.WriteLine();
+        }
+        public void Update()
+        {
+            Console.WriteLine("Supplier ID");
+            int id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Supplier Name");
+            string name = Console.ReadLine();
+            Console.WriteLine("Supplier Contact");
+            string contact = Console.ReadLine();
+            var supplier = new Supplier()
+            {
+                SupplierId = id,
+                SupplierName = name,
+                SupplierContact = contact
+            };
+            supplierManager.UpdateSupplier(supplier);
+            Console.WriteLine("Supplier updated");
+            Console.WriteLine();
+
+        }
+
+        public void Delete()
+        {
+            Console.WriteLine("Enter Supplier Name to Delete");
+            string nameDelete = Console.ReadLine();
+            supplierManager.DeleteSupplier(nameDelete);
+            Console.WriteLine("supplier deleted");
+
         }
     }
 }

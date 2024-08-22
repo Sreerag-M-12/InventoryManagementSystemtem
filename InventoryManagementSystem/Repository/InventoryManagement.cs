@@ -50,6 +50,21 @@ namespace InventoryManagementSystem.Repository
             return _context.Transactions.Where(transaction => transaction.InventoryId == inventoryId).ToList();
         }
 
+        public List<Product> GetProducts()
+        {
+            return _context.Products.ToList();
+        }
+
+        public List<Supplier> GetSuppliers()
+        {
+            return _context.Suppliers.ToList();
+        }
+
+        public List<Transaction> GetTransactions()
+        {
+            return _context.Transactions.ToList();
+        }
+
         public void GenerateReport(int inventoryId)
         {
             ValidateInventoryId(inventoryId);
@@ -67,6 +82,19 @@ namespace InventoryManagementSystem.Repository
             Suppliers.ForEach(supplier => Console.WriteLine(supplier));
 
             Console.WriteLine("Transactions:");
+            Transactions.ForEach(transaction => Console.WriteLine(transaction));
+        }
+
+        public void GenerateReportBulk()
+        {
+            Products = GetProducts();
+            Suppliers = GetSuppliers();
+            Transactions = GetTransactions();
+            Console.WriteLine("================Products================\n");
+            Products.ForEach(product => Console.WriteLine(product));
+            Console.WriteLine("================Suppliers================\n");
+            Suppliers.ForEach(supplier => Console.WriteLine(supplier));
+            Console.WriteLine("================Transactions================\n");
             Transactions.ForEach(transaction => Console.WriteLine(transaction));
         }
     }

@@ -9,8 +9,7 @@ namespace InventoryManagementSystem
     {
         static void Main(string[] args)
         {
-            InventoryMenu menu=new InventoryMenu();
-            menu.MainMenu();
+            InventoryMenu.MainMenu();
         }
     }
 }

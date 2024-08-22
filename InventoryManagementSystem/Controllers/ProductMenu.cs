@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,81 +46,14 @@ namespace InventoryManagementSystem.Controllers
             switch (choice)
             {
                 case 1:
-                    Console.WriteLine("Enter Product Details ");
-                    Console.WriteLine("Product Name");
-                    string name = Console.ReadLine();
-                    try
-                    {
-                        productmanager.DoesProductExist(name);
-                    }
-                    catch(InvalidOperationException ioe) {
-                        Console.WriteLine(ioe.Message);
-                    }
-                    Console.WriteLine("Product Description");
-                    string description = Console.ReadLine();
-                    Console.WriteLine("Product Quantity");
-                    int quantity = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Product Price");
-                    int price = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Inventory Id");
-                    int inventoryId = Convert.ToInt32(Console.ReadLine());
-                    InventoryManagement inventoryManagement= new InventoryManagement(new Data.InventoryContext());
-                    try
-                    {
-                        if (!inventoryManagement.IsInventoryIdValid(inventoryId))
-                        {
-                            throw new InvalidOperationException("Invalid Inventory Id. Inventory doesnt exist.");
-                        }
-                    }
-                    catch (InvalidOperationException ioe)
-                    {
-                        Console.WriteLine(ioe.Message);
-                        return;
-                    }
-                    Product product = new Product()
-                    { 
-                        ProductName =name,
-                        ProductDescription=description,
-                        ProductQuantity=quantity,
-                        ProductPrice=price,
-                        InventoryId = inventoryId
-                    };
-                    productmanager.AddProduct(product);
-                    Console.WriteLine("Product Added");
+                    Add();
                     break;
                 
                 case 2:
-                    Console.WriteLine("Product ID");
-                    int id = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Product Name");
-                    name = Console.ReadLine();
-                    try
-                    {
-                        productmanager.DoesProductExist(name);
-                    }
-                    catch (InvalidOperationException ioe)
-                    {
-                        Console.WriteLine(ioe.Message);
-                    }
-                    Console.WriteLine("Product Description");
-                    description = Console.ReadLine();
-                    Console.WriteLine("Product Price");
-                    price = Convert.ToInt32(Console.ReadLine());
-                    product = new Product()
-                    {
-                        ProductId = id,
-                        ProductName = name,
-                        ProductDescription = description,
-                        ProductPrice = price
-                    };
-                    productmanager.UpdateProduct(product);
-                    Console.WriteLine("product updated");
+                    Update();
                     break;
                 case 3:
-                    Console.WriteLine("Enter Product Name to Delete");
-                    string nameDelete = Console.ReadLine();
-                    productmanager.DeleteProduct(nameDelete);
-                    Console.WriteLine($"Product deleted");
+                    Delete();
                     break;
                 case 4:
                     productmanager.DisplayProducts(productmanager.GetAllProduct());
@@ -130,8 +64,7 @@ namespace InventoryManagementSystem.Controllers
                     productmanager.DisplayProductById(id1);
                     break;
                 case 6:
-                    var inventoryMenu = new InventoryMenu();
-                    inventoryMenu.MainMenu();
+                    InventoryMenu.MainMenu();
                     break;
                 default:
                     Console.WriteLine("Invalid Input");
@@ -139,5 +72,88 @@ namespace InventoryManagementSystem.Controllers
                     break;
             }
         }
+        public void Add()
+        {
+            Console.WriteLine("Enter Product Details ");
+            Console.WriteLine("Product Name");
+            string name = Console.ReadLine();
+            try
+            {
+                productmanager.DoesProductExist(name);
+            }
+            catch (InvalidOperationException ioe)
+            {
+                Console.WriteLine(ioe.Message);
+            }
+            Console.WriteLine("Product Description");
+            string description = Console.ReadLine();
+            Console.WriteLine("Product Quantity");
+            int quantity = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Product Price");
+            int price = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Inventory Id");
+            int inventoryId = Convert.ToInt32(Console.ReadLine());
+            InventoryManagement inventoryManagement = new InventoryManagement(new Data.InventoryContext());
+            try
+            {
+                if (!inventoryManagement.IsInventoryIdValid(inventoryId))
+                {
+                    throw new InvalidOperationException("Invalid Inventory Id. Inventory doesnt exist.");
+                }
+            }
+            catch (InvalidOperationException ioe)
+            {
+                Console.WriteLine(ioe.Message);
+                return;
+            }
+            Product product = new Product()
+            {
+                ProductName = name,
+                ProductDescription = description,
+                ProductQuantity = quantity,
+                ProductPrice = price,
+                InventoryId = inventoryId
+            };
+            productmanager.AddProduct(product);
+            Console.WriteLine("Product Added");
+
+        }
+        public void Update()
+        {
+            Console.WriteLine("Product ID");
+            int id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Product Name");
+            string name = Console.ReadLine();
+            try
+            {
+                productmanager.DoesProductExist(name);
+            }
+            catch (InvalidOperationException ioe)
+            {
+                Console.WriteLine(ioe.Message);
+            }
+            Console.WriteLine("Product Description");
+            string description = Console.ReadLine();
+            Console.WriteLine("Product Price");
+            int price = Convert.ToInt32(Console.ReadLine());
+            var product = new Product()
+            {
+                ProductId = id,
+                ProductName = name,
+                ProductDescription = description,
+                ProductPrice = price
+            };
+            productmanager.UpdateProduct(product);
+            Console.WriteLine("product updated");
+
+        }
+        public void Delete()
+        {
+            Console.WriteLine("Enter Product Name to Delete");
+            string nameDelete = Console.ReadLine();
+            productmanager.DeleteProduct(nameDelete);
+            Console.WriteLine($"Product deleted");
+        }
+
     }
 }

@@ -46,8 +46,7 @@ namespace InventoryManagementSystem.Controllers
                     inventorymanager.GenerateReport(inventoryId);
                     break;
                 case 2:
-                    var inventorym = new InventoryManagement(new Data.InventoryContext());
-                    inventorym.GenerateReportBulk();
+                    inventorymanager.GenerateReportBulk();
                     break;
                 case 3:
                     InventoryMenu.MainMenu();
